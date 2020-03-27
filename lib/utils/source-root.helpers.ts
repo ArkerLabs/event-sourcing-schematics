@@ -23,7 +23,6 @@ export function mergeSourceRoot<
     const defaultSourceRoot =
       options.sourceRoot !== undefined ? options.sourceRoot : DEFAULT_PATH_NAME;
 
-    console.log(options.path);
     options.path =
       options.path !== undefined
         ? join(normalize(defaultSourceRoot), options.path)

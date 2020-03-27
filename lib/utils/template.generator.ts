@@ -25,7 +25,6 @@ T extends {
   flat?: boolean;
 }
 >(type: ElementType, options: T) {
-    console.log("./files/"+type);
     return (context: SchematicContext) =>
       apply(url('./files/' + type as Path), [
         template({

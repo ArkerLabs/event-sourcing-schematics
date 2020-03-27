@@ -4,7 +4,7 @@
   "description": "Event sourcing schematics by arkerlabs",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.json && cpx 'lib/**/*.json' dist && cpx 'lib/**/files/**/*.*' dist",
-    "build:watch": "tsc -p tsconfig.json -w",
+    "build:watch": "cpx 'lib/**/*.json' dist && cpx 'lib/**/files/**/*.*' dist && tsc -p tsconfig.json -w",
     "test": "npm run build && jest --config jest.json",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public"

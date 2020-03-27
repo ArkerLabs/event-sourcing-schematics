@@ -15,6 +15,10 @@
     "module": {
       "type": "string",
       "description": "Allows specification of the declaring module.",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
       "x-prompt": "What module would you like to use for the event?"
     },
     "createHandler": {
