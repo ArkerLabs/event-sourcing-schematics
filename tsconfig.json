@@ -9,12 +9,12 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "dist",
-    "rootDir": "src/",
+    "rootDir": "lib",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "target": "es6"
   },
-  "include": ["src/utils", "src/lib", "src/index.ts", "**.json"],
-  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/files/**"]
+  "include": ["lib/**/**.ts"],
+  "exclude": ["node_modules", "lib/**/*.test.ts", "lib/**/files/**"]
 }

@@ -1,0 +1,20 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "command": {
+      "factory": "./command/command.factory#main",
+      "description": "Create a command and its respective handler.",
+      "schema": "./command/schema.json"
+    },
+    "event": {
+      "factory": "./event/event.factory#main",
+      "description": "Create an event and its respective handler and updater if wanted.",
+      "schema": "./event/schema.json"
+    },
+    "query": {
+      "factory": "./query/query.factory#main",
+      "description": "Create a query and its respective handler.",
+      "schema": "./query/schema.json"
+    }
+  }
+}

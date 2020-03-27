@@ -1,10 +1,10 @@
 {
-  "name": "test-schematic",
-  "version": "0.0.0",
-  "description": "A blank schematics",
+  "name": "@arkerlabs/es-schematics",
+  "version": "1.0.0",
+  "description": "Event sourcing schematics by arkerlabs",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "build:watch": "tsc -p tsconfig.json",
+    "build": "rimraf dist && tsc -p tsconfig.json && cpx 'lib/**/*.json' dist && cpx 'lib/**/files/**/*.*' dist",
+    "build:watch": "tsc -p tsconfig.json -w",
     "test": "npm run build && jest --config jest.json"
   },
   "keywords": [
@@ -12,22 +12,24 @@
   ],
   "author": "Arker Labs",
   "license": "MIT",
-  "schematics": "./src/collection.json",
+  "schematics": "./dist/collection.json",
   "dependencies": {
     "@angular-devkit/core": "^9.0.7",
     "@angular-devkit/schematics": "^9.0.7"
   },
   "devDependencies": {
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
-    "jest": "25.1.0",
-    "ts-jest": "25.2.1",
-    "typescript": "~3.7.4",
-    "eslint-plugin-import": "2.20.1",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint": "6.8.0",
     "@types/jest": "25.1.4",
+    "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "2.25.0",
-    "@typescript-eslint/parser": "2.25.0"
+    "@typescript-eslint/parser": "2.25.0",
+    "cpx": "^1.5.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "2.20.1",
+    "jest": "25.1.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "25.2.1",
+    "typescript": "~3.7.4"
   }
 }
