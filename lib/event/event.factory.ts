@@ -1,14 +1,24 @@
 import { Path, strings } from '@angular-devkit/core';
-import { apply, branchAndMerge, chain, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { DeclarationOptions, ModuleDeclarator } from '../utils/module.declarator';
+import {
+  apply,
+  branchAndMerge,
+  chain,
+  mergeWith,
+  move,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  DeclarationOptions,
+  ModuleDeclarator,
+} from '../utils/module.declarator';
 import { ModuleFinder } from '../utils/module.finder';
 import { ElementType } from '../utils/name.parser';
 import { mergeSourceRoot, modifyOptions } from '../utils/source-root.helpers';
 import { EventOptions } from './event.schema';
-
-
-
-
 
 export function main(options: EventOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -52,7 +62,6 @@ function generateEventHandler(options: EventOptions) {
     ])(context);
 }
 
-
 function generateEventUpdater(options: EventOptions) {
   return (context: SchematicContext) =>
     apply(url('../../../src/lib/event/files/updater' as Path), [
@@ -66,7 +75,7 @@ function generateEventUpdater(options: EventOptions) {
 
 function addDeclarationToModule(options: EventOptions): Rule {
   return (tree: Tree) => {
-    if ((options.skipImport !== undefined && options.skipImport)) {
+    if (options.skipImport !== undefined && options.skipImport) {
       return tree;
     }
     const modulePath: Path = new ModuleFinder(tree).find({
