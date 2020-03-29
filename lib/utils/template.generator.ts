@@ -1,37 +1,41 @@
-import { Path, strings } from "@angular-devkit/core";
-
-import { SchematicContext, move, apply, url, template } from "@angular-devkit/schematics";
-import { ElementType } from "./name.parser";
-
+import { Path, strings } from '@angular-devkit/core';
+import {
+  apply,
+  move,
+  SchematicContext,
+  template,
+  url,
+} from '@angular-devkit/schematics';
 
 export function generate<
-T extends {
-  name: string;
+  T extends {
+    name: string;
 
-  module: string | Path;
+    module: string | Path;
 
-  path?: string | Path;
+    path?: string | Path;
 
-  skipImport?: boolean;
+    skipImport?: boolean;
 
-  metadata?: string;
+    metadata?: string;
 
-  type?: string;
+    fileType?: string;
 
-  sourceRoot?: string;
+    elementType?: string;
 
-  spec?: boolean;
+    sourceRoot?: string;
 
-  flat?: boolean;
-}
->(type: ElementType, options: T) {
-    return (context: SchematicContext) =>
-      apply(url('./files/' + type as Path), [
-        template({
-          ...strings,
-          ...options,
-        }),
-        move(options.path),
-      ])(context);
+    spec?: boolean;
+
+    flat?: boolean;
   }
-  
+>(options: T) {
+  return (context: SchematicContext) =>
+    apply(url(('./files/' + options.fileType) as Path), [
+      template({
+        ...strings,
+        ...options,
+      }),
+      move(options.path),
+    ])(context);
+}

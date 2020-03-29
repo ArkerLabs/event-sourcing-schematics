@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "tsconfig",
+    "baseUrl": "./tsconfig",
     "lib": [
       "es2018",
       "dom"
@@ -15,6 +15,6 @@
     "sourceMap": true,
     "target": "es6"
   },
-  "include": ["lib/**/**.ts"],
-  "exclude": ["node_modules", "lib/**/*.test.ts", "lib/**/files/**"]
+  "include": ["lib/**/*.ts"],
+  "exclude": ["node_modules", "lib/**/*.test.ts", "lib/**/files/**", "**/*.json"]
 }

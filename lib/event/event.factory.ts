@@ -1,15 +1,11 @@
-import { Path, strings } from '@angular-devkit/core';
+import { Path } from '@angular-devkit/core';
 import {
-  apply,
   branchAndMerge,
   chain,
   mergeWith,
-  move,
   Rule,
   SchematicContext,
-  template,
   Tree,
-  url,
 } from '@angular-devkit/schematics';
 import {
   DeclarationOptions,
@@ -18,6 +14,7 @@ import {
 import { ModuleFinder } from '../utils/module.finder';
 import { ElementType } from '../utils/name.parser';
 import { mergeSourceRoot, modifyOptions } from '../utils/source-root.helpers';
+import { generate } from '../utils/template.generator';
 import { EventOptions } from './event.schema';
 
 export function main(options: EventOptions): Rule {
@@ -26,51 +23,18 @@ export function main(options: EventOptions): Rule {
       chain([
         modifyOptions(ElementType.event, options),
         mergeSourceRoot(options),
-        mergeWith(generateEvent(options)),
+        mergeWith(generate(options)),
         modifyOptions(ElementType.eventHandler, options),
         mergeSourceRoot(options),
-        mergeWith(generateEventHandler(options)),
+        mergeWith(generate(options)),
         addDeclarationToModule(options),
         modifyOptions(ElementType.eventUpdater, options),
         mergeSourceRoot(options),
-        mergeWith(generateEventUpdater(options)),
+        mergeWith(generate(options)),
         addDeclarationToModule(options),
       ]),
     )(tree, context);
   };
-}
-
-function generateEvent(options: EventOptions) {
-  return (context: SchematicContext) =>
-    apply(url('../../../src/lib/event/files/event' as Path), [
-      template({
-        ...strings,
-        ...options,
-      }),
-      move(options.path),
-    ])(context);
-}
-
-function generateEventHandler(options: EventOptions) {
-  return (context: SchematicContext) =>
-    apply(url('../../../src/lib/event/files/handler' as Path), [
-      template({
-        ...strings,
-        ...options,
-      }),
-      move(options.path),
-    ])(context);
-}
-
-function generateEventUpdater(options: EventOptions) {
-  return (context: SchematicContext) =>
-    apply(url('../../../src/lib/event/files/updater' as Path), [
-      template({
-        ...strings,
-        ...options,
-      }),
-      move(options.path),
-    ])(context);
 }
 
 function addDeclarationToModule(options: EventOptions): Rule {

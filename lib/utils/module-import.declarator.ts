@@ -5,10 +5,16 @@ import { PathSolver } from './path.solver';
 export class ModuleImportDeclarator {
   constructor(private solver: PathSolver = new PathSolver()) {}
 
-  public declare(content: string, options: DeclarationOptions, modulePath: Path): string {
+  public declare(
+    content: string,
+    options: DeclarationOptions,
+    modulePath: Path,
+  ): string {
     const toInsert = this.buildLineToInsert(options, modulePath);
     const contentLines = content.split('\n');
-    const nonDuplicatedImports = contentLines.filter((val,i) => !val.includes(options.symbol));
+    const nonDuplicatedImports = contentLines.filter(
+      (val) => !val.includes(options.symbol),
+    );
 
     const finalImportIndex = this.findImportsEndpoint(nonDuplicatedImports);
     nonDuplicatedImports.splice(finalImportIndex + 1, 0, toInsert);
@@ -17,7 +23,7 @@ export class ModuleImportDeclarator {
 
   private findImportsEndpoint(contentLines: string[]): number {
     const reversedContent = Array.from(contentLines).reverse();
-    const reverseImports = reversedContent.filter(line =>
+    const reverseImports = reversedContent.filter((line) =>
       line.match(/\} from ('|")/),
     );
     if (reverseImports.length <= 0) {
@@ -26,17 +32,24 @@ export class ModuleImportDeclarator {
     return contentLines.indexOf(reverseImports[0]);
   }
 
-  private buildLineToInsert(options: DeclarationOptions, modulePath: Path): string {
+  private buildLineToInsert(
+    options: DeclarationOptions,
+    modulePath: Path,
+  ): string {
     return `import { ${options.symbol} } from '${this.computeRelativePath(
-      options,modulePath
+      options,
+      modulePath,
     )}';`;
   }
 
-  private computeRelativePath(options: DeclarationOptions, modulePath : Path): string {
+  private computeRelativePath(
+    options: DeclarationOptions,
+    modulePath: Path,
+  ): string {
     let importModulePath: Path;
-    if (options.type !== undefined) {
+    if (options.fileType !== undefined) {
       importModulePath = normalize(
-        `/${options.path}/${options.name}.${options.type}`,
+        `/${options.path}/${options.name}.${options.fileType}`,
       );
     } else {
       importModulePath = normalize(`/${options.path}/${options.name}`);

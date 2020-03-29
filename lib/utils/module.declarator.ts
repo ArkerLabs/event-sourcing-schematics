@@ -5,7 +5,7 @@ import { ModuleMetadataDeclarator } from './module-metadata.declarator';
 
 export interface DeclarationOptions {
   metadata: string;
-  type?: string;
+  fileType?: string;
   name: string;
   path: Path;
   module: Path;
@@ -22,7 +22,11 @@ export class ModuleDeclarator {
     private metadata: ModuleMetadataDeclarator = new ModuleMetadataDeclarator(),
   ) {}
 
-  public declare(content: string, options: DeclarationOptions, modulePath: Path): string {
+  public declare(
+    content: string,
+    options: DeclarationOptions,
+    modulePath: Path,
+  ): string {
     options = this.computeSymbol(options);
     content = this.imports.declare(content, options, modulePath);
     content = this.metadata.declare(content, options);
@@ -31,8 +35,10 @@ export class ModuleDeclarator {
 
   private computeSymbol(options: DeclarationOptions): DeclarationOptions {
     const target = Object.assign({}, options);
-    if (options.type !== undefined) {
-      target.symbol = classify(options.name).concat(capitalize(options.type));
+    if (options.fileType !== undefined) {
+      target.symbol = classify(options.name).concat(
+        capitalize(options.fileType),
+      );
     } else {
       target.symbol = classify(options.name);
     }

@@ -1,13 +1,13 @@
 import { basename, dirname, normalize, Path } from '@angular-devkit/core';
 
 export enum ElementType {
-  command = "command",
-  commandHandler = "handler",
-  event = "event",
-  eventHandler = "handler",
-  eventUpdater = "updater",
-  query = "query",
-  queryHandler = "handler",
+  command = 'command',
+  commandHandler = 'handler',
+  event = 'event',
+  eventHandler = 'event_handler',
+  eventUpdater = 'updater',
+  query = 'query',
+  queryHandler = 'query_handler',
 }
 
 export interface ParseOptions {
@@ -34,8 +34,12 @@ export class PathParser {
       path: normalize('/'.concat(path)),
     };
   }
-  
-  private parsePathBasedOnType(type: ElementType, path: any, options: ParseOptions) {
+
+  private parsePathBasedOnType(
+    type: ElementType,
+    path: any,
+    options: ParseOptions,
+  ) {
     switch (type) {
       case ElementType.command:
         path = this.parseCommandPath(options);

@@ -6,7 +6,7 @@ export interface EventOptions {
    */
   name: string;
 
-    /**
+  /**
    * The path to insert the command declaration.
    */
   module: string | Path;
@@ -15,7 +15,6 @@ export interface EventOptions {
    * The path to create the command.
    */
   path?: string | Path;
-
 
   /**
    * Directive to insert declaration in module.
@@ -33,11 +32,9 @@ export interface EventOptions {
    * Metadata name affected by declaration insertion.
    */
   metadata?: string;
-  /**
-   * Nest element type name
-   */
-  type?: string;
+  fileType?: string;
 
+  elementType?: string;
   /**
    * The source root path
    */

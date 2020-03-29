@@ -54,5 +54,5 @@
       "description": "Specifies if a spec file is generated."
     }
   },
-  "required": ["name","module"]
+  "required": ["name", "module"]
 }

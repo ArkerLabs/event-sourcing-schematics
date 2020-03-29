@@ -6,7 +6,7 @@ export interface CommandOptions {
    */
   name: string;
   /*
-   * 
+   *
    * The path to create the command.
    */
   path?: string | Path;
@@ -22,11 +22,9 @@ export interface CommandOptions {
    * Metadata name affected by declaration insertion.
    */
   metadata?: string;
-  /**
-   * Nest element type name
-   */
-  type?: string;
+  fileType?: string;
 
+  elementType?: string;
   /**
    * The source root path
    */

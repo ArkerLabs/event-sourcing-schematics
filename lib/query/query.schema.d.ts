@@ -6,7 +6,7 @@ export interface QueryOptions {
    */
   name: string;
 
-    /**
+  /**
    * The path to insert the command declaration.
    */
   module: string | Path;
@@ -27,8 +27,9 @@ export interface QueryOptions {
   /**
    * Nest element type name
    */
-  type?: string;
+  fileType?: string;
 
+  elementType?: string;
   /**
    * The source root path
    */

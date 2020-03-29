@@ -3,13 +3,12 @@ import { Rule, Tree } from '@angular-devkit/schematics';
 import { DEFAULT_PATH_NAME } from '../defaults';
 import { ElementType, PathParser } from '../utils';
 
-
 export function isInRootDirectory(
   host: Tree,
   extraFiles: string[] = [],
 ): boolean {
   const files = ['nest-cli.json', 'nest.json'].concat(extraFiles || []);
-  return files.map(file => host.exists(file)).some(isPresent => isPresent);
+  return files.map((file) => host.exists(file)).some((isPresent) => isPresent);
 }
 
 export function mergeSourceRoot<
@@ -51,7 +50,9 @@ export function modifyOptions<
 
     metadata?: string;
 
-    type?: string;
+    fileType?: string;
+
+    elementType?: string;
 
     sourceRoot?: string;
 
@@ -61,36 +62,38 @@ export function modifyOptions<
   }
 >(type: ElementType, options: T): Rule {
   return (host: Tree) => {
+    options.elementType = type;
+
     switch (type) {
       case ElementType.command:
-        options.type = COMMAND_TYPE;
+        options.fileType = COMMAND_TYPE;
         break;
 
       case ElementType.commandHandler:
-        options.type = HANDLER_TYPE;
+        options.fileType = HANDLER_TYPE;
         options.metadata = ELEMENT_METADATA;
         break;
 
       case ElementType.event:
-        options.type = EVENT_TYPE;
+        options.fileType = EVENT_TYPE;
         break;
 
       case ElementType.eventHandler:
-        options.type = HANDLER_TYPE;
+        options.fileType = HANDLER_TYPE;
         options.metadata = ELEMENT_METADATA;
         break;
 
       case ElementType.eventUpdater:
-        options.type = UPDATER_TYPE;
+        options.fileType = UPDATER_TYPE;
         options.metadata = ELEMENT_METADATA;
         break;
 
       case ElementType.query:
-        options.type = QUERY_TYPE;
+        options.fileType = QUERY_TYPE;
         break;
 
       case ElementType.queryHandler:
-        options.type = HANDLER_TYPE;
+        options.fileType = HANDLER_TYPE;
         options.metadata = ELEMENT_METADATA;
         break;
     }
