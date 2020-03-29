@@ -1,6 +1,6 @@
 {
   "name": "@arkerlabs/es-schematics",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Event sourcing schematics by arkerlabs",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.json && cpx 'lib/**/*.json' dist && cpx 'lib/**/files/**/*.*' dist",
@@ -13,7 +13,7 @@
     "release:tags": "git push --follow-tags origin master",
     "release:github": "conventional-github-releaser -p angular",
     "prerelease:npm": "npm run build",
-    "release:npm" : "npm publish --access public",
+    "release:npm": "npm publish --access public",
     "lint": "eslint lib/**/*.ts",
     "prettier:check": "prettier --check 'lib/**/*.{ts,json}'",
     "prettier:fix": "prettier 'lib/**/*.{ts,json}' --write"
