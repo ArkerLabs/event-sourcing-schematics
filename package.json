@@ -69,7 +69,7 @@
   "lint-staged": {
     "lib/**/*.ts": [
       "prettier --write",
-      "eslint --fix --ignore-pattern lib/**/files/**/*.* lib/**/tests/**/*.*",
+      "eslint --fix --ignore-pattern lib/**/files/**/*.*",
       "git add"
     ]
   },
