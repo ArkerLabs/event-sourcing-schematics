@@ -17,6 +17,9 @@
     "test:version": "standard-version -h",
     "release": "release-it"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "schematics"
   ],
