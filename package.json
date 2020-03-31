@@ -1,6 +1,6 @@
 {
   "name": "@arkerlabs/es-schematics",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Event sourcing schematics by arkerlabs",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.json && cpx 'lib/**/*.json' dist && cpx 'lib/**/files/**/*.*' dist",
