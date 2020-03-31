@@ -29,9 +29,9 @@ jobs:
     - run: npm test
     - run: git config --global user.email "edu@arkerlabs.com"
     - run: git config --global user.name "Eduardo Simón"
-    - run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > .npmrc
+    - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
     - run: npm run release -- --ci
       env: 
         CI: true
         GITHUB_TOKEN: ${{ secrets.RELEASE_IT_GITHUB_TOKEN }}
-        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        NPM_TOKEN: ${{secrets.NPM_TOKEN}}
