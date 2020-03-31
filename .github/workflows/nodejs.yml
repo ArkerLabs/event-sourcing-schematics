@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -27,7 +27,8 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - run: npm run release-ci  
+    - run: echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > .npmrc
+    - run: npm run release -- --ci
       env: 
         CI: true
         CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.CONVENTIONAL_GITHUB_RELEASER_TOKEN }}
