@@ -12,8 +12,6 @@
     "lint": "eslint lib/**/*.ts",
     "prettier:check": "prettier --check 'lib/**/*.{ts,json}'",
     "prettier:fix": "prettier 'lib/**/*.{ts,json}' --write",
-    "release-ci": "standard-version",
-    "postrelease-ci": "run-s release:",
     "test:version": "standard-version -h",
     "release": "release-it"
   },

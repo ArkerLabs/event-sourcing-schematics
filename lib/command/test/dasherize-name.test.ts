@@ -35,7 +35,7 @@ describe('Dasherizing name', () => {
 
   it('should manage name to dasherize when using kebab-case', () => {
     const options: CommandOptions = {
-      name: 'foo_bar',
+      name: 'foo-bar',
       module: '' as Path,
       spec: false,
     };
