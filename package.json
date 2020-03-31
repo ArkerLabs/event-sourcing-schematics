@@ -17,7 +17,6 @@
     "lint": "eslint lib/**/*.ts",
     "prettier:check": "prettier --check 'lib/**/*.{ts,json}'",
     "prettier:fix": "prettier 'lib/**/*.{ts,json}' --write",
-    "prerelease-ci": "git-authors-cli --print=false",
     "release-ci": "standard-version",
     "postrelease-ci": "run-s release:*"
   },
