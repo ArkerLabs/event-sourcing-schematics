@@ -1,5 +1,6 @@
 /schema.graphql
 
+.npmrc
 
 # compiled output
 /dist
