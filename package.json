@@ -8,17 +8,14 @@
     "test": "npm run build && jest --config jest.json",
     "test:watch": "npm run build && jest --config jest.json --watch",
     "commit": "npx git-cz",
-    "prerelease": "git checkout master && git pull origin master && npm i && git-authors-cli && git add .",
-    "release": "standard-version -a",
-    "postrelease": "run-s release:*",
-    "release:tags": "git push --follow-tags origin master",
-    "release:github": "conventional-github-releaser -p angular",
     "release:npm": "npm publish --access public",
     "lint": "eslint lib/**/*.ts",
     "prettier:check": "prettier --check 'lib/**/*.{ts,json}'",
     "prettier:fix": "prettier 'lib/**/*.{ts,json}' --write",
     "release-ci": "standard-version",
-    "postrelease-ci": "run-s release:*"
+    "postrelease-ci": "run-s release:",
+    "test:version": "standard-version -h",
+    "release": "release-it"
   },
   "keywords": [
     "schematics"
@@ -51,6 +48,7 @@
     "lint-staged": "^10.0.9",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.2",
+    "release-it": "^13.5.1",
     "rimraf": "^3.0.2",
     "standard-version": "^7.1.0",
     "ts-jest": "25.2.1",
