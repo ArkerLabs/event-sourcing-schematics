@@ -27,6 +27,8 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - run: git config --global user.email "edu@arkerlabs.com"
+    - run: git config --global user.name "Eduardo Simón"
     - run: echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > .npmrc
     - run: npm run release -- --ci
       env: 
