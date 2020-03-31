@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ArkerLabs/event-sourcing-schematics/compare/v1.1.2...v1.2.0) (2020-03-31)
+
+
+### Features
+
+* **test:** test ([14f620e](https://github.com/ArkerLabs/event-sourcing-schematics/commit/14f620e26df044d880edb850bcba1c1f1cee2278))
+
 ### [1.1.2](https://github.com/ArkerLabs/event-sourcing-schematics/compare/v1.1.1...v1.1.2) (2020-03-29)
 
 
