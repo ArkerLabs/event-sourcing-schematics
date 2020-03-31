@@ -13,11 +13,13 @@
     "postrelease": "run-s release:*",
     "release:tags": "git push --follow-tags origin master",
     "release:github": "conventional-github-releaser -p angular",
-    "prerelease:npm": "npm run build",
     "release:npm": "npm publish --access public",
     "lint": "eslint lib/**/*.ts",
     "prettier:check": "prettier --check 'lib/**/*.{ts,json}'",
-    "prettier:fix": "prettier 'lib/**/*.{ts,json}' --write"
+    "prettier:fix": "prettier 'lib/**/*.{ts,json}' --write",
+    "prerelease-ci" : "git-authors-cli",
+    "release-ci" : "standard-version",
+    "postrelease-ci": "run-s release:*"
   },
   "keywords": [
     "schematics"
