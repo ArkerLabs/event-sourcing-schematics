@@ -20,16 +20,8 @@ import { DeclarationOptions } from './module.declarator';
 export class MetadataManager {
   constructor(private content: string) {}
 
-  public insert(
-    metadata: string,
-    symbol: string,
-    staticOptions?: DeclarationOptions['staticOptions'],
-  ): string {
-    const source: SourceFile = createSourceFile(
-      'filename.ts',
-      this.content,
-      ScriptTarget.ES2017,
-    );
+  public insert(metadata: string, symbol: string, staticOptions?: DeclarationOptions['staticOptions']): string {
+    const source: SourceFile = createSourceFile('filename.ts', this.content, ScriptTarget.ES2017);
     const decoratorNodes: Node[] = this.getDecoratorMetadata(source, '@Module');
     const node: Node = decoratorNodes[0];
     const matchingProperties: ObjectLiteralElement[] = (node as ObjectLiteralExpression).properties
@@ -54,27 +46,13 @@ export class MetadataManager {
       const expr = node as ObjectLiteralExpression;
       if (expr.properties.length === 0) {
         addBlankLinesIfDynamic();
-        return this.insertMetadataToEmptyModuleDecorator(
-          expr,
-          metadata,
-          symbol,
-        );
+        return this.insertMetadataToEmptyModuleDecorator(expr, metadata, symbol);
       } else {
         addBlankLinesIfDynamic();
-        return this.insertNewMetadataToDecorator(
-          expr,
-          source,
-          metadata,
-          symbol,
-        );
+        return this.insertNewMetadataToDecorator(expr, source, metadata, symbol);
       }
     } else {
-      return this.insertSymbolToMetadata(
-        source,
-        matchingProperties,
-        symbol,
-        staticOptions,
-      );
+      return this.insertSymbolToMetadata(source, matchingProperties, symbol, staticOptions);
     }
   }
 
@@ -83,15 +61,10 @@ export class MetadataManager {
     return this.getSourceNodes(source)
       .filter(
         (node) =>
-          node.kind === SyntaxKind.Decorator &&
-          (node as Decorator).expression.kind === SyntaxKind.CallExpression,
+          node.kind === SyntaxKind.Decorator && (node as Decorator).expression.kind === SyntaxKind.CallExpression,
       )
       .map((node) => (node as Decorator).expression as CallExpression)
-      .filter(
-        (expr) =>
-          expr.arguments[0] &&
-          expr.arguments[0].kind === SyntaxKind.ObjectLiteralExpression,
-      )
+      .filter((expr) => expr.arguments[0] && expr.arguments[0].kind === SyntaxKind.ObjectLiteralExpression)
       .map((expr) => expr.arguments[0] as ObjectLiteralExpression);
   }
 
@@ -167,9 +140,7 @@ export class MetadataManager {
     }
     if (Array.isArray(node)) {
       const nodeArray = (node as {}) as Node[];
-      const symbolsArray = nodeArray.map((childNode) =>
-        childNode.getText(source),
-      );
+      const symbolsArray = nodeArray.map((childNode) => childNode.getText(source));
       if (symbolsArray.includes(symbol)) {
         return this.content;
       }
@@ -198,10 +169,7 @@ export class MetadataManager {
     }, '');
   }
 
-  private mergeSymbolAndExpr(
-    symbol: string,
-    staticOptions?: DeclarationOptions['staticOptions'],
-  ): string {
+  private mergeSymbolAndExpr(symbol: string, staticOptions?: DeclarationOptions['staticOptions']): string {
     if (!staticOptions) {
       return symbol;
     }

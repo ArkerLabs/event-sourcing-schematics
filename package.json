@@ -6,6 +6,7 @@
     "build": "rimraf dist && tsc -p tsconfig.json && cpx 'lib/**/*.json' dist && cpx 'lib/**/files/**/*.*' dist",
     "build:watch": "cpx 'lib/**/*.json' dist && cpx 'lib/**/files/**/*.*' dist && tsc -p tsconfig.json -w",
     "test": "npm run build && jest --config jest.json",
+    "test:watch": "npm run build && jest --config jest.json --watch",
     "commit": "npx git-cz",
     "prerelease": "git checkout master && git pull origin master && npm i && git-authors-cli && git add .",
     "release": "standard-version -a",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@nestjs/schematics": "^7.0.0",
     "@types/jasmine": "~3.5.0",
     "@types/jest": "25.1.4",
     "@types/node": "^12.11.1",
@@ -67,11 +69,7 @@
   "lint-staged": {
     "lib/**/*.ts": [
       "prettier --write",
-      "eslint --fix",
-      "git add"
-    ],
-    "lib/**/*.json": [
-      "prettier --write",
+      "eslint --fix --ignore-pattern lib/**/files/**/*.* lib/**/tests/**/*.*",
       "git add"
     ]
   },

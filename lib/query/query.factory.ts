@@ -1,18 +1,9 @@
 import { Path } from '@angular-devkit/core';
-import {
-  branchAndMerge,
-  chain,
-  mergeWith,
-  Rule,
-  SchematicContext,
-  Tree,
-} from '@angular-devkit/schematics';
-import {
-  DeclarationOptions,
-  ModuleDeclarator,
-} from '../utils/module.declarator';
+import { branchAndMerge, chain, mergeWith, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+
+import { ElementType } from '../utils/element-type.enum';
+import { DeclarationOptions, ModuleDeclarator } from '../utils/module.declarator';
 import { ModuleFinder } from '../utils/module.finder';
-import { ElementType } from '../utils/name.parser';
 import { mergeSourceRoot, modifyOptions } from '../utils/source-root.helpers';
 import { generate } from '../utils/template.generator';
 import { QueryOptions } from './query.schema';
@@ -47,10 +38,7 @@ function addDeclarationToModule(options: QueryOptions): Rule {
     }
     const content = tree.read(modulePath).toString();
     const declarator: ModuleDeclarator = new ModuleDeclarator();
-    tree.overwrite(
-      modulePath,
-      declarator.declare(content, options as DeclarationOptions, modulePath),
-    );
+    tree.overwrite(modulePath, declarator.declare(content, options as DeclarationOptions, modulePath));
     return tree;
   };
 }

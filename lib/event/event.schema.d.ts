@@ -19,11 +19,11 @@ export interface EventOptions {
   /**
    * Directive to insert declaration in module.
    */
-  createHandler?: boolean;
+  createHandler: boolean;
   /**
    * Directive to insert declaration in module.
    */
-  createUpdater?: boolean;
+  createUpdater: boolean;
   /**
    * Directive to insert declaration in module.
    */
@@ -43,8 +43,4 @@ export interface EventOptions {
    * Specifies if a spec file is generated.
    */
   spec?: boolean;
-  /**
-   * Flag to indicate if a directory is created.
-   */
-  flat?: boolean;
 }

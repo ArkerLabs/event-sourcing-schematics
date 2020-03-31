@@ -1,31 +1,25 @@
 import { join, normalize, Path, strings } from '@angular-devkit/core';
 import { Rule, Tree } from '@angular-devkit/schematics';
-import { DEFAULT_PATH_NAME } from '../defaults';
-import { ElementType, PathParser } from '../utils';
 
-export function isInRootDirectory(
-  host: Tree,
-  extraFiles: string[] = [],
-): boolean {
+import { DEFAULT_PATH_NAME } from '../defaults';
+import { PathParser } from '../utils';
+import { ElementType } from './element-type.enum';
+
+export function isInRootDirectory(host: Tree, extraFiles: string[] = []): boolean {
   const files = ['nest-cli.json', 'nest.json'].concat(extraFiles || []);
   return files.map((file) => host.exists(file)).some((isPresent) => isPresent);
 }
 
-export function mergeSourceRoot<
-  T extends { sourceRoot?: string; path?: string } = any
->(options: T): Rule {
+export function mergeSourceRoot<T extends { sourceRoot?: string; path?: string } = any>(options: T): Rule {
   return (host: Tree) => {
     const isInRoot = isInRootDirectory(host, ['tsconfig.json', 'package.json']);
     if (!isInRoot) {
       return host;
     }
-    const defaultSourceRoot =
-      options.sourceRoot !== undefined ? options.sourceRoot : DEFAULT_PATH_NAME;
+    const defaultSourceRoot = options.sourceRoot !== undefined ? options.sourceRoot : DEFAULT_PATH_NAME;
 
     options.path =
-      options.path !== undefined
-        ? join(normalize(defaultSourceRoot), options.path)
-        : normalize(defaultSourceRoot);
+      options.path !== undefined ? join(normalize(defaultSourceRoot), options.path) : normalize(defaultSourceRoot);
 
     return host;
   };
@@ -62,7 +56,7 @@ export function modifyOptions<
   }
 >(type: ElementType, options: T): Rule {
   return (host: Tree) => {
-    options.elementType = type;
+    options.elementType = type.toString();
 
     switch (type) {
       case ElementType.command:

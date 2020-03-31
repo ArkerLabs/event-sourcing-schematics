@@ -38,8 +38,4 @@ export interface QueryOptions {
    * Specifies if a spec file is generated.
    */
   spec?: boolean;
-  /**
-   * Flag to indicate if a directory is created.
-   */
-  flat?: boolean;
 }

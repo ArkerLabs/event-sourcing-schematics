@@ -1,10 +1,9 @@
-import { IEventHandler } from '@nestjs/cqrs';
-import { EventsHandler } from '@nestjs/cqrs/dist/decorators/events-handler.decorator';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { <%= classify(name) %>Query } from '../impl/<%= dasherize(name) %>.query';
 
-@EventsHandler(<%= classify(name) %>Query)
-export class <%= classify(name) %>Handler implements IEventHandler<<%= classify(name) %>Query> {
+@QueryHandler(<%= classify(name) %>Query)
+export class <%= classify(name) %>Handler implements IQueryHandler<<%= classify(name) %>Query> {
 
-    handle(event: <%= classify(name) %>Query) {
+    async execute(query: <%= classify(name) %>Query) {
     }
 }

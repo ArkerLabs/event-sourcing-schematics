@@ -1,14 +1,6 @@
 import { basename, dirname, normalize, Path } from '@angular-devkit/core';
 
-export enum ElementType {
-  command = 'command',
-  commandHandler = 'handler',
-  event = 'event',
-  eventHandler = 'event_handler',
-  eventUpdater = 'updater',
-  query = 'query',
-  queryHandler = 'query_handler',
-}
+import { ElementType } from './element-type.enum';
 
 export interface ParseOptions {
   name: string;
@@ -35,11 +27,7 @@ export class PathParser {
     };
   }
 
-  private parsePathBasedOnType(
-    type: ElementType,
-    path: any,
-    options: ParseOptions,
-  ) {
+  private parsePathBasedOnType(type: ElementType, path: any, options: ParseOptions) {
     switch (type) {
       case ElementType.command:
         path = this.parseCommandPath(options);
