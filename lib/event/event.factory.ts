@@ -33,6 +33,15 @@ function addDeclarationToModule(options: EventOptions): Rule {
     if (options.skipImport !== undefined && options.skipImport) {
       return tree;
     }
+
+    if(options.elementType === ElementType.eventUpdater.toString() && !options.createUpdater){
+      return tree;
+    }
+
+    if( options.elementType === ElementType.eventHandler.toString() && !options.createHandler){
+      return tree;
+    }
+
     const modulePath: Path = new ModuleFinder(tree).find({
       name: options.name,
       path: options.path as Path,
