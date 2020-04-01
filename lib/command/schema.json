@@ -21,23 +21,13 @@
       },
       "x-prompt": "What module would you like to use for the command?"
     },
-    "path": {
-      "type": "string",
-      "format": "path",
-      "description": "The path to create the command."
-    },
     "sourceRoot": {
       "type": "string",
-      "description": "Nest command source root directory."
+      "description": "Root dir of the source in the nest project, defaults to src."
     },
     "skipImport": {
       "description": "Flag to skip the module import.",
       "default": false
-    },
-
-    "flat": {
-      "default": false,
-      "description": "Flag to indicate if a directory is created."
     },
     "spec": {
       "default": true,

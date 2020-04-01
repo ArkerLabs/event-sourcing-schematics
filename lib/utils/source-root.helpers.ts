@@ -50,14 +50,27 @@ export function modifyOptions<
 
     sourceRoot?: string;
 
-    spec?: boolean;
+    createHandler?: boolean | string;
 
-    flat?: boolean;
+    createUpdater?: boolean | string;
+
+    spec?: boolean | string ;
   }
 >(type: ElementType, options: T): Rule {
   return (host: Tree) => {
     options.elementType = type.toString();
 
+    if(options.createHandler === "true"){
+      options.createHandler = true;
+    }
+
+    if(options.createUpdater === "true"){
+      options.createUpdater = true;
+    }
+    
+    if(options.spec === "true"){
+      options.spec = true;
+    }
     switch (type) {
       case ElementType.command:
         options.fileType = COMMAND_TYPE;

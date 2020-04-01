@@ -32,6 +32,7 @@ export interface EventOptions {
    * Metadata name affected by declaration insertion.
    */
   metadata?: string;
+  
   fileType?: string;
 
   elementType?: string;

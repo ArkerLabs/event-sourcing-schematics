@@ -1,5 +1,6 @@
 import { join, Path, strings } from '@angular-devkit/core';
 import { apply, filter, move, noop, SchematicContext, template, url } from '@angular-devkit/schematics';
+
 import { ElementType } from './element-type.enum';
 
 export function generate<
@@ -26,8 +27,8 @@ export function generate<
 >(options: T) {
   return (context: SchematicContext) =>
     apply(url(join('./files' as Path, options.fileType)), [
-      options.spec ? noop() : filter((path) => !path.endsWith('.spec.ts')),
-      options.createHandler
+      options.spec === true ? noop() : filter((path) => !path.endsWith('.spec.ts')),
+      options.createHandler === true
         ? noop()
         : filter((path) => {
             if (options.elementType === ElementType.eventHandler) {
@@ -36,7 +37,7 @@ export function generate<
 
             return true;
           }),
-      options.createUpdater
+      options.createUpdater === true
         ? noop()
         : filter((path) => !path.endsWith('.updater.ts') && !path.endsWith('.updater.spec.ts')),
       template({
