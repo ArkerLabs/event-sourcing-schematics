@@ -54,22 +54,34 @@ export function modifyOptions<
 
     createUpdater?: boolean | string;
 
-    spec?: boolean | string ;
+    spec?: boolean | string;
   }
 >(type: ElementType, options: T): Rule {
   return (host: Tree) => {
     options.elementType = type.toString();
 
-    if(options.createHandler === "true"){
+    if (options.createHandler === 'true') {
       options.createHandler = true;
     }
 
-    if(options.createUpdater === "true"){
+    if (options.createHandler === 'false') {
+      options.createHandler = false;
+    }
+
+    if (options.createUpdater === 'true') {
       options.createUpdater = true;
     }
-    
-    if(options.spec === "true"){
+
+    if (options.createUpdater === 'false') {
+      options.createUpdater = false;
+    }
+
+    if (options.spec === 'true') {
       options.spec = true;
+    }
+
+    if (options.spec === 'false') {
+      options.spec = false;
     }
     switch (type) {
       case ElementType.command:

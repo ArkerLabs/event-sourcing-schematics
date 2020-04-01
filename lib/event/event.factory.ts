@@ -34,11 +34,11 @@ function addDeclarationToModule(options: EventOptions): Rule {
       return tree;
     }
 
-    if(options.elementType === ElementType.eventUpdater.toString() && !options.createUpdater){
+    if(options.elementType === ElementType.eventUpdater && options.createUpdater !== undefined && !options.createUpdater){
       return tree;
     }
 
-    if( options.elementType === ElementType.eventHandler.toString() && !options.createHandler){
+    if( options.elementType === ElementType.eventHandler && options.createHandler !== undefined && !options.createHandler){
       return tree;
     }
 
