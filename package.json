@@ -7,7 +7,6 @@
     "build:watch": "cpx 'lib/**/*.json' dist && cpx 'lib/**/files/**/*.*' dist && tsc -p tsconfig.json -w",
     "test": "npm run build && jest --config jest.json",
     "test:watch": "npm run build && jest --config jest.json --watch",
-    "commit": "npx git-cz",
     "release:npm": "npm publish --access public",
     "lint": "eslint lib/**/*.ts",
     "prettier:check": "prettier --check 'lib/**/*.{ts,json}'",
@@ -69,8 +68,7 @@
   "lint-staged": {
     "lib/**/*.ts": [
       "prettier --write",
-      "eslint --fix --ignore-pattern lib/**/files/**/*.*",
-      "git add"
+      "eslint --fix --ignore-pattern lib/**/files/**/*.*"
     ]
   },
   "contributors": [
