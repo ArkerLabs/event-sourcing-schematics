@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/ArkerLabs/event-sourcing-schematics/compare/v2.0.0...v2.1.0) (2020-04-07)
+
+
+### Features
+
+* 🎸 Add parent class to events and aggregate type ([9e9d125](https://github.com/ArkerLabs/event-sourcing-schematics/commit/9e9d125af9034b8355d7885af2076edf863abbf2))
+
 # [2.0.0](https://github.com/ArkerLabs/event-sourcing-schematics/compare/v1.2.3...v2.0.0) (2020-04-07)
 
 
