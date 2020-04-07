@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
   "id": "SchematicsCommand",
+  "description": "Create a command and its respective handler.",
   "type": "object",
   "properties": {
     "name": {
