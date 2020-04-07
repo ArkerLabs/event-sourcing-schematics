@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
   "id": "SchematicsEvent",
+  "description": "Create an event and optionally its handler and updater.",
   "type": "object",
   "properties": {
     "name": {
