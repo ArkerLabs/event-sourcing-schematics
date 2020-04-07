@@ -138,9 +138,9 @@ const getEventFileStringLiteral = (options: { name: string; expectedDasherized: 
   '    eventAggregate = \'' + singularize(options.module) + '\';\n'+
   '    eventVersion = 1;\n'+
   '\n'+
-  '    constructor(\n' +
-  '        public readonly id: string\n'+
-  '    ) {}\n'+
+  '    constructor(public readonly id: string){\n'+
+  '        super();\n'+
+  '    }\n'+
   '}'
 };
 

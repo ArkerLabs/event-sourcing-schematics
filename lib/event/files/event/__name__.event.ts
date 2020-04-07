@@ -5,7 +5,7 @@ export class <%= classify(name) %>Event extends StorableEvent {
     eventAggregate = '<%= singularize(module) %>';
     eventVersion = 1;
 
-    constructor(
-        public readonly id: string
-    ) {}
+    constructor(public readonly id: string){
+        super();
+    }
 }
