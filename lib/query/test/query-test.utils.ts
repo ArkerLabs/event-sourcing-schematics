@@ -10,6 +10,7 @@ export function expectCreatedQueryAndHandler(
   queryName: string,
   expectedDasherized: string,
   expectedClassified: string,
+  moduleName: string,
 ) {
   expect(tree.files.find((filename) => filename === `/queries/impl/${dasherize(queryName)}.query.ts`)).toBeDefined();
   expect(
@@ -23,6 +24,7 @@ export function expectCreatedQueryAndHandler(
       name: queryName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
   expect(tree.readContent(`/queries/handlers/${dasherize(queryName)}.handler.ts`)).toEqual(
@@ -30,6 +32,7 @@ export function expectCreatedQueryAndHandler(
       name: queryName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
 }
@@ -39,6 +42,7 @@ export function expectCreatedQueryAndHandlerInPaths(
   queryName: string,
   queryPath: string,
   handlerPath: string,
+  moduleName: string,
   specPath?: string,
 ) {
   expect(tree.files.find((filename) => filename === queryPath)).toBeDefined();
@@ -48,15 +52,18 @@ export function expectCreatedQueryAndHandlerInPaths(
     expect(tree.files.find((filename) => filename === specPath)).toBeDefined();
   }
 
-  expect(tree.readContent(queryPath)).toEqual(getStringLiteralTemplate(ElementType.query, { name: queryName }));
+  expect(tree.readContent(queryPath)).toEqual(
+    getStringLiteralTemplate(ElementType.query, { name: queryName, module: moduleName }),
+  );
   expect(tree.readContent(handlerPath)).toEqual(
-    getStringLiteralTemplate(ElementType.queryHandler, { name: queryName }),
+    getStringLiteralTemplate(ElementType.queryHandler, { name: queryName, module: moduleName }),
   );
 }
 
 export function expectCreatedQueryAndHandlerWithSpec(
   tree: UnitTestTree,
   queryName: string,
+  moduleName: string,
   expectedDasherized: string,
   expectedClassified: string,
 ) {
@@ -70,6 +77,7 @@ export function expectCreatedQueryAndHandlerWithSpec(
       name: queryName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
   expect(tree.readContent(`/queries/handlers/${dasherize(queryName)}.handler.ts`)).toEqual(
@@ -77,6 +85,7 @@ export function expectCreatedQueryAndHandlerWithSpec(
       name: queryName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
 }

@@ -10,6 +10,7 @@ export function expectCreatedCommandAndHandler(
   commandName: string,
   expectedDasherized: string,
   expectedClassified: string,
+  moduleName: string,
 ) {
   expect(
     tree.files.find((filename) => filename === `/commands/impl/${dasherize(commandName)}.command.ts`),
@@ -23,6 +24,7 @@ export function expectCreatedCommandAndHandler(
       name: commandName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
   expect(tree.readContent(`/commands/handlers/${dasherize(commandName)}.handler.ts`)).toEqual(
@@ -30,6 +32,7 @@ export function expectCreatedCommandAndHandler(
       name: commandName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
 }
@@ -39,6 +42,7 @@ export function expectCreatedCommandAndHandlerInPaths(
   commandName: string,
   commandPath: string,
   handlerPath: string,
+  moduleName: string,
   specPath?: string,
 ) {
   expect(tree.files.find((filename) => filename === commandPath)).toBeDefined();
@@ -48,9 +52,11 @@ export function expectCreatedCommandAndHandlerInPaths(
     expect(tree.files.find((filename) => filename === specPath)).toBeDefined();
   }
 
-  expect(tree.readContent(commandPath)).toEqual(getStringLiteralTemplate(ElementType.command, { name: commandName }));
+  expect(tree.readContent(commandPath)).toEqual(
+    getStringLiteralTemplate(ElementType.command, { name: commandName, module: moduleName }),
+  );
   expect(tree.readContent(handlerPath)).toEqual(
-    getStringLiteralTemplate(ElementType.commandHandler, { name: commandName }),
+    getStringLiteralTemplate(ElementType.commandHandler, { name: commandName, module: moduleName }),
   );
 }
 
@@ -59,6 +65,7 @@ export function expectCreatedCommandAndHandlerWithSpec(
   commandName: string,
   expectedDasherized: string,
   expectedClassified: string,
+  moduleName: string,
 ) {
   expect(
     tree.files.find((filename) => filename === `/commands/impl/${dasherize(commandName)}.command.ts`),
@@ -72,6 +79,7 @@ export function expectCreatedCommandAndHandlerWithSpec(
       name: commandName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
   expect(tree.readContent(`/commands/handlers/${dasherize(commandName)}.handler.ts`)).toEqual(
@@ -79,6 +87,7 @@ export function expectCreatedCommandAndHandlerWithSpec(
       name: commandName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
 }

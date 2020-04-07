@@ -2,6 +2,7 @@ import { join, Path, strings } from '@angular-devkit/core';
 import { apply, filter, move, noop, SchematicContext, template, url } from '@angular-devkit/schematics';
 
 import { ElementType } from './element-type.enum';
+import { pluralizeString, singularize } from './singularize-string';
 
 export function generate<
   T extends {
@@ -43,6 +44,8 @@ export function generate<
       template({
         ...strings,
         ...options,
+        singularize,
+        pluralizeString,
       }),
       move(options.path),
     ])(context);

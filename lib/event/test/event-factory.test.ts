@@ -3,16 +3,17 @@ import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
+
 import { EventOptions } from '../event.schema';
 import {
   expectCreatedEvent,
   expectCreatedEventHandler,
   expectCreatedEventInPaths,
   expectCreatedEventUpdater,
-  expectNotCreatedEventHandler,
-  expectNotCreatedEventUpdater,
   expectNestProvidersArrayModuleToBeUpdatedInAppModule,
   expectNestProvidersArrayModuleToBeUpdatedWithEventsInCustomModule,
+  expectNotCreatedEventHandler,
+  expectNotCreatedEventUpdater,
 } from './event-tests.utils';
 
 describe('Event Factory', () => {
@@ -29,9 +30,23 @@ describe('Event Factory', () => {
 
     const tree: UnitTestTree = runner.runSchematic('event', options);
 
-    expectCreatedEvent(tree, options.name, dasherize(options.name), classify(options.name));
-    expectCreatedEventHandler(tree, options.name, true, dasherize(options.name), classify(options.name));
-    expectCreatedEventUpdater(tree, options.name, true, dasherize(options.name), classify(options.name));
+    expectCreatedEvent(tree, options.name, options.module, dasherize(options.name), classify(options.name));
+    expectCreatedEventHandler(
+      tree,
+      options.name,
+      options.module,
+      true,
+      dasherize(options.name),
+      classify(options.name),
+    );
+    expectCreatedEventUpdater(
+      tree,
+      options.name,
+      options.module,
+      true,
+      dasherize(options.name),
+      classify(options.name),
+    );
   });
 
   it('should create an event, handler and updater without spec when specified', () => {
@@ -45,9 +60,23 @@ describe('Event Factory', () => {
     };
 
     const tree: UnitTestTree = runner.runSchematic('event', options);
-    expectCreatedEvent(tree, options.name, dasherize(options.name), classify(options.name));
-    expectCreatedEventHandler(tree, options.name, false, dasherize(options.name), classify(options.name));
-    expectCreatedEventUpdater(tree, options.name, false, dasherize(options.name), classify(options.name));
+    expectCreatedEvent(tree, options.name, options.module, dasherize(options.name), classify(options.name));
+    expectCreatedEventHandler(
+      tree,
+      options.name,
+      options.module,
+      false,
+      dasherize(options.name),
+      classify(options.name),
+    );
+    expectCreatedEventUpdater(
+      tree,
+      options.name,
+      options.module,
+      false,
+      dasherize(options.name),
+      classify(options.name),
+    );
   });
 
   it('should create an event and a handler when createHandler = true and createUpdater = false', () => {
@@ -62,8 +91,15 @@ describe('Event Factory', () => {
 
     const tree: UnitTestTree = runner.runSchematic('event', options);
 
-    expectCreatedEvent(tree, options.name, dasherize(options.name), classify(options.name));
-    expectCreatedEventHandler(tree, options.name, true, dasherize(options.name), classify(options.name));
+    expectCreatedEvent(tree, options.name, options.module, dasherize(options.name), classify(options.name));
+    expectCreatedEventHandler(
+      tree,
+      options.name,
+      options.module,
+      true,
+      dasherize(options.name),
+      classify(options.name),
+    );
     expectNotCreatedEventUpdater(tree, options.name);
   });
 
@@ -79,7 +115,7 @@ describe('Event Factory', () => {
 
     const tree: UnitTestTree = runner.runSchematic('event', options);
 
-    expectCreatedEvent(tree, options.name, dasherize(options.name), classify(options.name));
+    expectCreatedEvent(tree, options.name, options.module, dasherize(options.name), classify(options.name));
     expectNotCreatedEventHandler(tree, options.name);
     expectNotCreatedEventUpdater(tree, options.name);
   });
@@ -96,9 +132,16 @@ describe('Event Factory', () => {
 
     const tree: UnitTestTree = runner.runSchematic('event', options);
 
-    expectCreatedEvent(tree, options.name, dasherize(options.name), classify(options.name));
+    expectCreatedEvent(tree, options.name, options.module, dasherize(options.name), classify(options.name));
     expectNotCreatedEventHandler(tree, options.name);
-    expectCreatedEventUpdater(tree, options.name, true, dasherize(options.name), classify(options.name));
+    expectCreatedEventUpdater(
+      tree,
+      options.name,
+      options.module,
+      true,
+      dasherize(options.name),
+      classify(options.name),
+    );
   });
 
   it('should throw when called without name and module', () => {
@@ -145,6 +188,7 @@ describe('Event Factory', () => {
       '/src/events/impl/foo.event.ts',
       '/src/events/handlers/foo.handler.ts',
       '/src/events/updaters/foo.updater.ts',
+      options.module,
     );
     expectNestProvidersArrayModuleToBeUpdatedInAppModule(tree, classify('foo'));
   });
@@ -176,6 +220,7 @@ describe('Event Factory', () => {
       '/src/users/events/impl/foo.event.ts',
       '/src/users/events/handlers/foo.handler.ts',
       '/src/users/events/updaters/foo.updater.ts',
+      options.module,
     );
     expectNestProvidersArrayModuleToBeUpdatedWithEventsInCustomModule(tree, classify('foo'), moduleOptions.name);
   });

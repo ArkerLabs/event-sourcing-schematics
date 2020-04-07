@@ -8,6 +8,7 @@ import { getStringLiteralTemplate } from '../../utils/test/template-string-liter
 export function expectCreatedEvent(
   tree: UnitTestTree,
   eventName: string,
+  moduleName: string,
   expectedDasherized: string,
   expectedClassified: string,
 ) {
@@ -18,6 +19,7 @@ export function expectCreatedEvent(
       name: eventName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
 }
@@ -25,6 +27,7 @@ export function expectCreatedEvent(
 export function expectCreatedEventHandler(
   tree: UnitTestTree,
   eventName: string,
+  moduleName: string,
   shouldSpecBeDefined: boolean,
   expectedDasherized: string,
   expectedClassified: string,
@@ -49,6 +52,7 @@ export function expectCreatedEventHandler(
         name: eventName,
         expectedDasherized: expectedDasherized,
         expectedClassified: expectedClassified,
+        module: moduleName,
       }),
     );
   }
@@ -58,6 +62,7 @@ export function expectCreatedEventHandler(
       name: eventName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
 }
@@ -71,6 +76,7 @@ export function expectNotCreatedEventHandler(tree: UnitTestTree, eventName: stri
 export function expectCreatedEventUpdater(
   tree: UnitTestTree,
   eventName: string,
+  moduleName: string,
   shouldSpecBeDefined: boolean,
   expectedDasherized: string,
   expectedClassified: string,
@@ -95,6 +101,8 @@ export function expectCreatedEventUpdater(
         name: eventName,
         expectedDasherized: expectedDasherized,
         expectedClassified: expectedClassified,
+
+        module: moduleName,
       }),
     );
   }
@@ -104,6 +112,7 @@ export function expectCreatedEventUpdater(
       name: eventName,
       expectedDasherized: expectedDasherized,
       expectedClassified: expectedClassified,
+      module: moduleName,
     }),
   );
 }
@@ -120,6 +129,7 @@ export function expectCreatedEventInPaths(
   eventPath: string,
   handlerPath: string,
   updaterPath: string,
+  moduleName: string,
   specPath?: string,
 ) {
   expect(tree.files.find((filename) => filename === eventPath)).toBeDefined();
@@ -129,13 +139,15 @@ export function expectCreatedEventInPaths(
     expect(tree.files.find((filename) => filename === specPath)).toBeDefined();
   }
 
-  expect(tree.readContent(eventPath)).toEqual(getStringLiteralTemplate(ElementType.event, { name: eventName }));
+  expect(tree.readContent(eventPath)).toEqual(
+    getStringLiteralTemplate(ElementType.event, { name: eventName, module: moduleName }),
+  );
   expect(tree.readContent(handlerPath)).toEqual(
-    getStringLiteralTemplate(ElementType.eventHandler, { name: eventName }),
+    getStringLiteralTemplate(ElementType.eventHandler, { name: eventName, module: moduleName }),
   );
 
   expect(tree.readContent(updaterPath)).toEqual(
-    getStringLiteralTemplate(ElementType.eventUpdater, { name: eventName }),
+    getStringLiteralTemplate(ElementType.eventUpdater, { name: eventName, module: moduleName }),
   );
 }
 

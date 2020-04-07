@@ -1,6 +1,7 @@
 import { Path } from '@angular-devkit/core';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
+
 import { CommandOptions } from '../command.schema';
 import { expectCreatedCommandAndHandler } from './command-tests.utils';
 
@@ -18,7 +19,7 @@ describe('Dasherizing name', () => {
 
     const tree: UnitTestTree = runner.runSchematic('command', options);
 
-    expectCreatedCommandAndHandler(tree, 'fooBar', expectedDasherized, expectedClassified);
+    expectCreatedCommandAndHandler(tree, 'fooBar', expectedDasherized, expectedClassified, '');
   });
 
   it('should manage name to dasherize when using PascalCase', () => {
@@ -30,7 +31,7 @@ describe('Dasherizing name', () => {
 
     const tree: UnitTestTree = runner.runSchematic('command', options);
 
-    expectCreatedCommandAndHandler(tree, 'FooBar', expectedDasherized, expectedClassified);
+    expectCreatedCommandAndHandler(tree, 'FooBar', expectedDasherized, expectedClassified, '');
   });
 
   it('should manage name to dasherize when using kebab-case', () => {
@@ -42,7 +43,7 @@ describe('Dasherizing name', () => {
 
     const tree: UnitTestTree = runner.runSchematic('command', options);
 
-    expectCreatedCommandAndHandler(tree, 'foo-bar', expectedDasherized, expectedClassified);
+    expectCreatedCommandAndHandler(tree, 'foo-bar', expectedDasherized, expectedClassified, '');
   });
 
   it('should manage name to dasherize when using snake_case', () => {
@@ -54,7 +55,7 @@ describe('Dasherizing name', () => {
 
     const tree: UnitTestTree = runner.runSchematic('command', options);
 
-    expectCreatedCommandAndHandler(tree, 'foo_bar', expectedDasherized, expectedClassified);
+    expectCreatedCommandAndHandler(tree, 'foo_bar', expectedDasherized, expectedClassified, '');
   });
 
   it('should manage name to dasherize when using two words', () => {
@@ -66,6 +67,6 @@ describe('Dasherizing name', () => {
 
     const tree: UnitTestTree = runner.runSchematic('command', options);
 
-    expectCreatedCommandAndHandler(tree, 'foo bar', expectedDasherized, expectedClassified);
+    expectCreatedCommandAndHandler(tree, 'foo bar', expectedDasherized, expectedClassified, '');
   });
 });

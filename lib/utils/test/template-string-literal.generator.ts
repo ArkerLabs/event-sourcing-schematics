@@ -1,15 +1,17 @@
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 import { ElementType } from '../element-type.enum';
+import { singularize } from '../singularize-string';
 
 export const getStringLiteralTemplate = (
   type: ElementType,
-  options: { name: string; expectedDasherized?: string; expectedClassified?: string },
+  options: { name: string; module: string; expectedDasherized?: string; expectedClassified?: string },
 ): string => {
   const target = {
     expectedClassified: options.expectedClassified || classify(options.name),
     expectedDasherized: options.expectedDasherized || dasherize(options.name),
     name: options.name,
+    module: options.module,
   };
 
   switch (type) {
@@ -128,8 +130,18 @@ const getQueryHandlerSpecFileStringLiteral = (options: { name: string; expectedD
 };
 
 // prettier-ignore
-const getEventFileStringLiteral = (options: { name: string; expectedDasherized: string; expectedClassified: string }): string => {
-  return 'export class ' + options.expectedClassified + 'Event {\n' + '    constructor() {}\n' + '}\n';
+const getEventFileStringLiteral = (options: { name: string; expectedDasherized: string; expectedClassified: string , module: string}): string => {
+  return "import { StorableEvent } from 'event-sourcing-nestjs';\n" + 
+  "\n" +
+  'export class ' + options.expectedClassified + 'Event extends StorableEvent {\n' +
+  '\n' +
+  '    eventAggregate = \'' + singularize(options.module) + '\';\n'+
+  '    eventVersion = 1;\n'+
+  '\n'+
+  '    constructor(\n' +
+  '        public readonly id: string\n'+
+  '    ) {}\n'+
+  '}'
 };
 
 // prettier-ignore
