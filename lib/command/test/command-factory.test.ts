@@ -3,6 +3,7 @@ import { classify } from '@angular-devkit/core/src/utils/strings';
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
+
 import { CommandOptions } from '../command.schema';
 import {
   expectCreatedCommandAndHandler,
@@ -24,7 +25,7 @@ describe('Command Factory', () => {
 
     const tree: UnitTestTree = runner.runSchematic('command', options);
 
-    expectCreatedCommandAndHandler(tree, 'foo', 'foo', 'Foo');
+    expectCreatedCommandAndHandler(tree, 'foo', 'foo', 'Foo', '');
   });
 
   it('should create a command, its handler and the spec file in the root path when called with name and without module and spec=true', () => {
@@ -37,7 +38,7 @@ describe('Command Factory', () => {
 
     const tree: UnitTestTree = runner.runSchematic('command', options);
 
-    expectCreatedCommandAndHandlerWithSpec(tree, 'foo', 'foo', 'Foo');
+    expectCreatedCommandAndHandlerWithSpec(tree, 'foo', 'foo', 'Foo', '');
   });
 
   it('should should throw when called without name and module', () => {
@@ -81,6 +82,7 @@ describe('Command Factory', () => {
       'foo',
       '/src/commands/impl/foo.command.ts',
       '/src/commands/handlers/foo.handler.ts',
+      options.module,
     );
     expectNestProvidersArrayModuleToBeUpdatedInAppModule(tree, classify('foo'));
   });
@@ -109,6 +111,7 @@ describe('Command Factory', () => {
       'foo',
       '/src/users/commands/impl/foo.command.ts',
       '/src/users/commands/handlers/foo.handler.ts',
+      moduleOptions.name,
     );
     expectNestProvidersArrayModuleToBeUpdatedInCustomModule(tree, classify('foo'), moduleOptions.name);
   });

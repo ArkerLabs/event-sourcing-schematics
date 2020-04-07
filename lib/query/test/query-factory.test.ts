@@ -1,16 +1,17 @@
 import { Path } from '@angular-devkit/core';
+import { classify } from '@angular-devkit/core/src/utils/strings';
+import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
+
 import { QueryOptions } from '../query.schema';
 import {
   expectCreatedQueryAndHandler,
-  expectCreatedQueryAndHandlerWithSpec,
   expectCreatedQueryAndHandlerInPaths,
+  expectCreatedQueryAndHandlerWithSpec,
   expectNestProvidersArrayModuleToBeUpdatedInAppModule,
   expectNestProvidersArrayModuleToBeUpdatedInCustomModule,
 } from './query-test.utils';
-import { Tree } from '@angular-devkit/schematics';
-import { classify } from '@angular-devkit/core/src/utils/strings';
 
 describe('Query Factory', () => {
   const runner: SchematicTestRunner = new SchematicTestRunner('.', path.join(process.cwd(), 'lib/collection.json'));
@@ -24,7 +25,7 @@ describe('Query Factory', () => {
 
     const tree: UnitTestTree = runner.runSchematic('query', options);
 
-    expectCreatedQueryAndHandler(tree, 'foo', 'foo', 'Foo');
+    expectCreatedQueryAndHandler(tree, 'foo', 'foo', 'Foo', options.module);
   });
 
   it('should create a query, its handler and the spec file in the root path when called with name and without module and spec=true', () => {
@@ -37,7 +38,7 @@ describe('Query Factory', () => {
 
     const tree: UnitTestTree = runner.runSchematic('query', options);
 
-    expectCreatedQueryAndHandlerWithSpec(tree, 'foo', 'foo', 'Foo');
+    expectCreatedQueryAndHandlerWithSpec(tree, 'foo', options.module, 'foo', 'Foo');
   });
 
   it('should should throw when called without name and module', () => {
@@ -81,6 +82,7 @@ describe('Query Factory', () => {
       'foo',
       '/src/queries/impl/foo.query.ts',
       '/src/queries/handlers/foo.handler.ts',
+      options.module,
     );
     expectNestProvidersArrayModuleToBeUpdatedInAppModule(tree, classify('foo'));
   });
@@ -109,6 +111,7 @@ describe('Query Factory', () => {
       'foo',
       '/src/users/queries/impl/foo.query.ts',
       '/src/users/queries/handlers/foo.handler.ts',
+      options.module,
     );
     expectNestProvidersArrayModuleToBeUpdatedInCustomModule(tree, classify('foo'), moduleOptions.name);
   });
